@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="CYB_Build.View.TaskDefsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CYB_Build.View"
+             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:CYB_Build.ViewModel"
+             DataContext="{x:Static vm:TaskDefsVM.Instance}"
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel LastChildFill="True">
+            <StackPanel Margin="3" Orientation="Horizontal" Height="25" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+                <Button Width="80" Command="{Binding}" CommandParameter="Add">Add</Button>
+                <Button Width="80" Command="{Binding}" CommandParameter="Remove">Remove</Button>
+            </StackPanel>
+
+            <ListView ItemsSource="{Binding Items}"
+                      DockPanel.Dock="Top" SelectedItem="{Binding SelectedItem}" 
+                      SelectionChanged="ListView_SelectionChanged"
+                      BorderThickness="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} ({1})">
+                                    <Binding Path="Id"/>
+                                    <Binding Path="Config"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </DockPanel>
+
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
+
+        <local:TaskItemView x:Name="tiView" Grid.Row="2" Item="{Binding SelectedItem, Source=TaskItemVM.Instance}"/>
+    </Grid>
+</UserControl>

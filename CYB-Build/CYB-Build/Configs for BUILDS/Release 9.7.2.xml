@@ -1,0 +1,86 @@
+﻿<Configs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TaskProcessTitle="CYB Build New">
+  <Cfgs xsi:type="Config" Status="Done" Id="Initial Cleanup">
+    <Command>powershell</Command>
+    <Args>rd -force -recurse e:\Temp\*</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Done" Id="GIT Clone CYB-C#">
+    <Command>git.exe</Command>
+    <Args>clone "http://gitserver/marini/CYB-CSharp.git" --branch "feature/Maestro-integration" "E:\Temp\C#-sources"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="MSBuild" Status="Done" Id="Build CYB-C#">
+    <Command>msbuild.exe</Command>
+    <Args>"E:\Temp\C#-sources\Sources\\CybertronicSln.sln" /p:Configuration=Release /p:OutputPath="E:\Temp\C#-build"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Envelope" Status="Done" Id="Crypt C# Assemblies" BinSources="E:\Temp\C#-build\*" EnvSrcFolder="\\uts31\Cartella sorgenti per criptatura" EnvDestFolder="\\uts31\Cartella destinazione dll criptate\*" CriptedFolder="E:\Temp\C# out crypted">
+    <Command>powershell -command copy 'E:\Temp\C#-build\*' '\\uts31\Cartella sorgenti per criptatura' -recurse -verbose -force
+psexec \\uts31 -h -u marini\uts -p uts -w "c:\Users\uts\Desktop" "C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.7.2_Envelope_v7.5.prjx"
+powershell -command copy '\\uts31\Cartella destinazione dll criptate\*' 'E:\Temp\C# out crypted' -recurse -verbose -force</Command>
+    <Args />
+    <EnvelopeCommand Status="Todo">
+      <User>marini\uts</User>
+      <Password>uts</Password>
+      <CurrentFolder>c:\Users\uts\Desktop</CurrentFolder>
+      <RemoteMachine>uts31</RemoteMachine>
+      <RemoteCommand>"C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.7.2_Envelope_v7.5.prjx"</RemoteCommand>
+      <Command>psexec</Command>
+      <Args>\\uts31 -h -u marini\uts -p uts -w "c:\Users\uts\Desktop" "C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.7.2_Envelope_v7.5.prjx"</Args>
+      <EnvelopeCommand>C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com</EnvelopeCommand>
+      <EnvelopePrjFile>Cybertronic500 v9.7.2_Envelope_v7.5.prjx</EnvelopePrjFile>
+    </EnvelopeCommand>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Done" Id="GIT Clone VB6">
+    <Command>git.exe</Command>
+    <Args>clone "http://gitserver/marini/CYB-VB6.git" --branch "master" "E:\Temp\VB-sources"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="VBBuild" Status="Done" Id="Build CYB-VB">
+    <Command>"C:\Program Files (x86)\Microsoft Visual Studio\VB98\VB6.EXE"</Command>
+    <Args>/make "E:\Temp\VB-sources\Source\ComCP240.vbp" /outdir "E:\Temp\VB-out" /out "E:\Temp\VB-out\log.txt"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="TELock" Status="Done" Id="TElock VB">
+    <Command>"C:\Users\btifac\Desktop\telock98\telock.exe"</Command>
+    <Args>-S E:\Temp\VB-out\Cyb500N.exe</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Done" Id="GIT Clone Configuration">
+    <Command>git.exe</Command>
+    <Args>clone "http://gitserver/marini/Configuration.git" --branch "master" "e:\temp\Configuration"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Error" Id="GIT Clone PLC">
+    <Command>git.exe</Command>
+    <Args>clone "http://gitserver/marini/PLC-Main.git" --branch "master" "e:\Temp\PLC"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="ZipConfig" Status="Done" Id="ZIP C# sources" SourcePath="E:\Temp\C#-sources" OutputZip="E:\Temp\C#-sources.zip" />
+  <Cfgs xsi:type="ZipConfig" Status="Done" Id="ZIP C# build" SourcePath="E:\Temp\C#-build" OutputZip="E:\Temp\C#-build.zip" />
+  <Cfgs xsi:type="ZipConfig" Status="Done" Id="ZIP C# crypted" SourcePath="E:\Temp\C# out crypted" OutputZip="E:\Temp\C# out crypted.zip" />
+  <Cfgs xsi:type="ZipConfig" Status="Done" Id="ZIP VB sources" SourcePath="E:\Temp\VB-sources" OutputZip="E:\Temp\VB-sources.zip" />
+  <Cfgs xsi:type="ZipConfig" Status="Done" Id="ZIP VB build" SourcePath="E:\Temp\VB-out" OutputZip="E:\Temp\VB-out.zip" />
+  <Cfgs xsi:type="ZipConfig" Status="Done" Id="ZIP Configuration" SourcePath="E:\Temp\Configuration" OutputZip="E:\Temp\Configuration.zip" />
+  <Cfgs xsi:type="ZipConfig" Status="Todo" Id="ZIP PLC" SourcePath="E:\Temp\PLC" OutputZip="E:\Temp\PLC.zip" />
+  <Cfgs xsi:type="Config" Status="Done" Id="Delete C# sources">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\C#-sources'</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Config" Status="Done" Id="Delete C# build">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\C#-build'</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Config" Status="Done" Id="Delete C# crypt">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\C# out crypted'</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Config" Status="Done" Id="Delete VB sources">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\VB-sources'</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Config" Status="Done" Id="Delete VB build">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\VB-out'</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Config" Status="Done" Id="Delete Configuration">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\Configuration'</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Config" Status="Todo" Id="Delete PLC">
+    <Command>powershell</Command>
+    <Args>rm -r -fo 'e:\Temp\PLC'</Args>
+  </Cfgs>
+</Configs>

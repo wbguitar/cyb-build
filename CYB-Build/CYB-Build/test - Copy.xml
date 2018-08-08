@@ -1,0 +1,59 @@
+﻿<Configs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TaskProcessTitle="CYB Build">
+  <Cfgs xsi:type="Config" Status="Done" Id="Cleanup" >
+    <Command>powershell</Command>
+    <Args>rd -force -recurse e:\Temp\*</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Done" Id="GIT Clone CYB-C#">
+    <Command>git.exe</Command>
+    <Args>clone "http://fbetti@itmar-pc280:8442/r/CYB-CS.git" --branch "master" "E:\Temp\C#-sources"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Done" Id="GIT Clone CYB-C#-Libs">
+    <Command>git.exe</Command>
+    <Args>clone "http://fbetti@itmar-pc280:8442/r/CYB-CS-LIBS.git" --branch "master" "E:\Temp\Additional library"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="MSBuild" Status="Done" Id="Build CYB-C#">
+    <Command>msbuild.exe</Command>
+    <Args>"E:\Temp\C#-sources\CybertronicSln.sln" /p:Configuration=Release /p:OutputPath="E:\Temp\C#-build"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="Envelope" Status="Done" Id="Crypt C# Assemblies" BinSources="E:\Temp\C#-build\*" EnvSrcFolder="\\uts31\Cartella sorgenti per criptatura" EnvDestFolder="\\uts31\Cartella destinazione dll criptate\*" CriptedFolder="E:\Temp\C# out crypted">
+    <Command>powershell -command copy 'E:\Temp\C#-build\*' '\\uts31\Cartella sorgenti per criptatura' -recurse -verbose -force
+psexec \\uts31 -h -u marini\uts -p uts -w "c:\Users\uts\Desktop" "C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.6.25_Envelope_v7.5.prjx"
+powershell -command copy '\\uts31\Cartella destinazione dll criptate\*' 'E:\Temp\C# out crypted' -recurse -verbose -force</Command>
+    <Args />
+    <EnvelopeCommand Status="Todo">
+      <User>marini\uts</User>
+      <Password>uts</Password>
+      <CurrentFolder>c:\Users\uts\Desktop</CurrentFolder>
+      <RemoteMachine>uts31</RemoteMachine>
+      <RemoteCommand>"C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.6.25_Envelope_v7.5.prjx"</RemoteCommand>
+      <Command>psexec</Command>
+      <Args>\\uts31 -h -u marini\uts -p uts -w "c:\Users\uts\Desktop" "C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.6.25_Envelope_v7.5.prjx"</Args>
+      <EnvelopeCommand>C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com</EnvelopeCommand>
+      <EnvelopePrjFile>Cybertronic500 v9.6.25_Envelope_v7.5.prjx</EnvelopePrjFile>
+    </EnvelopeCommand>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Status="Done" Id="GIT Clone VB6">
+    <Command>git.exe</Command>
+    <Args>clone "http://fbetti@itmar-pc280:8442/r/CYB-VB.git" --branch "master" "E:\Temp\VB-sources"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="VBBuild" Status="Done" Id="Build CYB-VB">
+    <Command>"C:\Program Files (x86)\Microsoft Visual Studio\VB98\VB6.EXE"</Command>
+    <Args>/make "E:\Temp\VB-sources\ComCP240.vbp" /outdir "E:\Temp\VB-out" /out "E:\Temp\VB-out\log.txt"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="TELock" Status="Done" Id="TElock VB">
+    <Command>"C:\Users\btifac\Desktop\telock98\telock.exe"</Command>
+    <Args>-S E:\Temp\VB-out\Cyb500N.exe</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GlobalTaskConfig" Status="Done" Id="Global Task">
+    <Command />
+    <Args />
+    <CSharpRepo>http://fbetti@itmar-pc280:8442/r/CYB-CS.git</CSharpRepo>
+    <CSharpBranch>master</CSharpBranch>
+    <CSharpLibsRepo>http://fbetti@itmar-pc280:8442/r/CYB-CS-LIBS.git</CSharpLibsRepo>
+    <CSharpLibsBranch>master</CSharpLibsBranch>
+    <VBRepo>http://fbetti@itmar-pc280:8442/r/CYB-VB.git</VBRepo>
+    <VBBranch>master</VBBranch>
+    <Issue>1</Issue>
+    <Commessa>M-P17012</Commessa>
+  </Cfgs>
+</Configs>

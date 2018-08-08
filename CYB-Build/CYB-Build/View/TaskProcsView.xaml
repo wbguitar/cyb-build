@@ -1,0 +1,34 @@
+﻿<Window x:Class="CYB_Build.View.TaskProcsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:CYB_Build.ViewModel"
+             DataContext="{x:Static vm:TaskProcessVM.Instance}"
+             xmlns:wtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:CYB_Build.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="310" d:DesignWidth="520">
+
+    <!--<DockPanel LastChildFill="True">
+        <StackPanel Margin="3" Orientation="Horizontal" Height="25" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+            <Button Width="80" Command="{Binding}" CommandParameter="Add">Add</Button>
+            <Button Width="80" Command="{Binding}" CommandParameter="Edit">Edit</Button>
+            <Button Width="80" Command="{Binding}" CommandParameter="Remove">Remove</Button>
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding TaskProcs}"
+                  DockPanel.Dock="Top" 
+                  SelectedItem="{Binding SelectedTask}"
+                  SelectionChanged="ListView_SelectionChanged"
+                  BorderThickness="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </DockPanel>-->
+    <wtk:PropertyGrid SelectedObject="{Binding}"/>
+</Window>

@@ -1,0 +1,148 @@
+﻿<TaskProcessVM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TaskProcs>
+    <TaskProcess Title="CYB Build">
+      <TaskDefs>
+        <TaskItem Id="Initial Cleanup" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="GIT Clone CYB-C#" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="GIT Clone CYB-C#-Libs" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Build CYB-C#" Config="TaskLib.Specialized.MSBuildTask+Config">
+          <Bindings>
+            <BindItem LocalProp="SolutionPath" SourceProp="OutputDir" SourceId="GIT Clone CYB-C#" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="Crypt C# Assemblies" Config="CYB_Build.Model.EnvelopeTask+EnvelopeConfig">
+          <Bindings>
+            <BindItem LocalProp="BinSources" SourceProp="OutputDir" SourceId="Build CYB-C#" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="GIT Clone VB6" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Build CYB-VB" Config="TaskLib.Specialized.VBTask+Config">
+          <Bindings>
+            <BindItem LocalProp="ProjectPath" SourceProp="OutputDir" SourceId="GIT Clone VB6" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="TElock VB" Config="TaskLib.Specialized.TELockTask+Config">
+          <Bindings>
+            <BindItem LocalProp="ExeDir" SourceProp="OutDir" SourceId="Build CYB-VB" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="Global Task" Config="Custom.GlobalTaskConfig">
+          <Bindings>
+            <BindItem LocalProp="CSharpRepo" SourceProp="RepoUrl" SourceId="GIT Clone CYB-C#" />
+            <BindItem LocalProp="CSharpBranch" SourceProp="Branch" SourceId="GIT Clone CYB-C#" />
+            <BindItem LocalProp="CSharpLibsRepo" SourceProp="RepoUrl" SourceId="GIT Clone CYB-C#-Libs" />
+            <BindItem LocalProp="CSharpLibsBranch" SourceProp="Branch" SourceId="GIT Clone CYB-C#-Libs" />
+            <BindItem LocalProp="VBRepo" SourceProp="RepoUrl" SourceId="GIT Clone VB6" />
+            <BindItem LocalProp="VBBranch" SourceProp="Branch" SourceId="GIT Clone VB6" />
+          </Bindings>
+        </TaskItem>
+      </TaskDefs>
+    </TaskProcess>
+    <TaskProcess Title="CYB Build New">
+      <TaskDefs>
+        <TaskItem Id="Initial Cleanup" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="GIT Clone CYB-C#" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Build CYB-C#" Config="TaskLib.Specialized.MSBuildTask+Config">
+          <Bindings>
+            <BindItem LocalProp="SolutionPath" SourceProp="OutputDir" SourceId="GIT Clone CYB-C#" />
+            <BindItem LocalProp="SolutionPath" SourceProp="Args" SourceId="Nuget restore" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="Crypt C# Assemblies" Config="CYB_Build.Model.EnvelopeTask+EnvelopeConfig">
+          <Bindings>
+            <BindItem LocalProp="BinSources" SourceProp="OutputDir" SourceId="Build CYB-C#" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="GIT Clone VB6" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Build CYB-VB" Config="TaskLib.Specialized.VBTask+Config">
+          <Bindings>
+            <BindItem LocalProp="ProjectPath" SourceProp="OutputDir" SourceId="GIT Clone VB6" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="TElock VB" Config="TaskLib.Specialized.TELockTask+Config">
+          <Bindings>
+            <BindItem LocalProp="ExeDir" SourceProp="OutDir" SourceId="Build CYB-VB" />
+          </Bindings>
+        </TaskItem>
+        <TaskItem Id="GIT Clone Configuration" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="GIT Clone PLC" Config="TaskLib.Specialized.GitCloneTask+Config">
+          <Bindings />
+        </TaskItem>
+        
+        <TaskItem Id="ZIP C# sources" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="ZIP C# build" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="ZIP C# crypted" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="ZIP VB sources" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="ZIP VB build" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="ZIP Configuration" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="ZIP PLC" Config="TaskLib.Specialized.ZipTask+ZipConfig">
+          <Bindings />
+        </TaskItem>
+
+        <TaskItem Id="Delete C# sources" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Delete C# build" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Delete C# crypt" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Delete VB sources" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Delete VB build" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Delete Configuration" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+        <TaskItem Id="Delete PLC" Config="TaskLib.Config">
+          <Bindings />
+        </TaskItem>
+
+      </TaskDefs>
+      
+      
+    </TaskProcess>
+    <TaskProcess Title="C# Crypt">
+      <TaskDefs>
+        <TaskItem Id="Envelope" Config="CYB_Build.Model.EnvelopeRemoteCmd">
+          <Bindings />
+        </TaskItem>
+      </TaskDefs>
+    </TaskProcess>
+  </TaskProcs>
+  <Assemblies>
+    <AssemblyItem FilePath="TaskLib.dll" />
+    <AssemblyItem FilePath="CYB-Build.exe" />
+  </Assemblies>
+</TaskProcessVM>

@@ -1,0 +1,26 @@
+﻿<Configs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Cfgs xsi:type="GitClone" Descr="GIT clone C#">
+    <Command>git.exe</Command>
+    <Args>clone http://itmar-pc280:8442/r/CYB-CS.git --branch hotfix/M-P17042 "C:\Users\wuby\AppData\Local\Temp\CYB-CS"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Descr="GIT clone C#">
+    <Command>git.exe</Command>
+    <Args>clone http://itmar-pc280:8442/r/CYB-CS-LIBS.git --branch master "C:\Users\wuby\AppData\Local\Temp\Additional library"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="MSBuild" Descr="MSBuild task">
+    <Command>msbuild.exe</Command>
+    <Args>"C:\Users\wuby\AppData\Local\Temp\CYB-CS\CybertronicSln.sln" /p:Configuration=Release /p:OutputPath="C:\Users\wuby\AppData\Local\Temp\CYB-CS\BUILD"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="GitClone" Descr="GIT clone VB">
+    <Command>git.exe</Command>
+    <Args>clone http://itmar-pc280:8442/r/CYB-VB.git --branch develop "C:\Users\wuby\AppData\Local\Temp\CYB-VB"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="VBBuild" Descr="VB6Build task" CybExe="Cyb500N.exe">
+    <Command>"C:\Program Files (x86)\Microsoft Visual Studio\VB98\VB6.EXE"</Command>
+    <Args>/make "C:\Users\wuby\AppData\Local\Temp\CYB-VB\ComCP240.vbp" /outdir "C:\Users\wuby\AppData\Local\Temp\CYB-VB\BUILD"</Args>
+  </Cfgs>
+  <Cfgs xsi:type="TELock" Descr="TELock task" CybExe="Cyb500N.exe">
+    <Command>C:\Users\btifac\Desktop\telock98\telock.exe</Command>
+    <Args>-S "C:\Users\wuby\AppData\Local\Temp\CYB-VB\BUILD\Cyb500N.exe"</Args>
+  </Cfgs>
+</Configs>

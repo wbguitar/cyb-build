@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XmlDefConfig>
+  <Id>TEST CONFIG</Id>
+  <Command>command.exe</Command>
+  <ArgsReg>-a @First@ -b @Second@ -c @Third@</ArgsReg>
+  <Params>
+    <First>first</First>
+    <Second>second</Second>
+    <Third>third</Third>
+  </Params>
+</XmlDefConfig>
