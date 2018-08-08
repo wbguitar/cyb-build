@@ -1,0 +1,19 @@
+﻿<Configs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TaskProcessTitle="C# Crypt">
+  <Cfgs xsi:type="Envelope" Status="Done" Id="Envelope" BinSources="E:\DEV\MARINI\M-P16015\CybertronicV9.6\Cybertronic\BackupManagerPlus\bin\Release\*" EnvSrcFolder="\\uts31\Cartella sorgenti per criptatura" EnvDestFolder="\\uts31\Cartella destinazione dll criptate\*" CriptedFolder="E:\DEV\MARINI\M-P16015\CybertronicV9.6\Cybertronic\BackupManagerPlus\bin\Release\CRYPT">
+    <Command>powershell -command copy 'E:\DEV\MARINI\M-P16015\CybertronicV9.6\Cybertronic\BackupManagerPlus\bin\Release\*' '\\uts31\Cartella sorgenti per criptatura' -recurse -verbose -force
+psexec \\uts31 -h -u marini\uts -p uts -w "c:\Users\uts\Desktop" "C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.6.15.3_Envelope_v7.5.prjx"
+powershell -command copy '\\uts31\Cartella destinazione dll criptate\*' 'E:\DEV\MARINI\M-P16015\CybertronicV9.6\Cybertronic\BackupManagerPlus\bin\Release\CRYPT' -recurse -verbose -force</Command>
+    <Args />
+    <EnvelopeCommand Status="Todo">
+      <User>marini\uts</User>
+      <Password>uts</Password>
+      <CurrentFolder>c:\Users\uts\Desktop</CurrentFolder>
+      <RemoteMachine>uts31</RemoteMachine>
+      <RemoteCommand>"C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.6.15.3_Envelope_v7.5.prjx"</RemoteCommand>
+      <Command>psexec</Command>
+      <Args>\\uts31 -h -u marini\uts -p uts -w "c:\Users\uts\Desktop" "C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com" -p "Cybertronic500 v9.6.15.3_Envelope_v7.5.prjx"</Args>
+      <EnvelopeCommand>C:\Program Files\Gemalto Sentinel\Sentinel LDK\VendorTools\VendorSuite\envelope.com</EnvelopeCommand>
+      <EnvelopePrjFile>Cybertronic500 v9.6.15.3_Envelope_v7.5.prjx</EnvelopePrjFile>
+    </EnvelopeCommand>
+  </Cfgs>
+</Configs>
