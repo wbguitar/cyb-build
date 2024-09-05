@@ -37,7 +37,7 @@
                             </Border>
 
                             <ControlTemplate.Triggers>
-                                <Trigger  Property="IsSelected" Value="True">
+                                <Trigger Property="IsSelected" Value="True">
                                     <Setter TargetName="Border"  Property="Background">
                                         <Setter.Value>
                                             <SolidColorBrush Color="LightSkyBlue" Opacity="0.5"/>

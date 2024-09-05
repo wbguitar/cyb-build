@@ -44,7 +44,7 @@ namespace CYB_Build.View
             bi.BeginInit();
             bi.UriSource = new Uri("pack://siteoforigin:,,,/Resources/plus.png"); // new Uri(SIO.Path.Combine(curFolder, "Resources/plus.png"))
             bi.EndInit();
-            var ti = new TabItem()
+            var ti = new TabItemEx()
             {
                 Header = new Image()
                 {
@@ -101,6 +101,18 @@ namespace CYB_Build.View
                         return;
 
                     ConfigsVM.Instance.Configs = (TabCtrlVM.Instance.SelectedItem.Tag as ObservableCollection<AConfig>);
+
+                    if (!string.IsNullOrWhiteSpace(TabCtrlVM.Instance.SelectedItem.ProcessTitle))
+                    {
+                        var tp = TaskProcessVM.Instance.TaskProcs.FirstOrDefault(t => t.Title == TabCtrlVM.Instance.SelectedItem.ProcessTitle);
+                        if (tp == null)
+                            return;
+
+
+                        TaskProcessVM.Instance.SelectedTask = tp;
+                    }
+                    
+
                 };
 
 

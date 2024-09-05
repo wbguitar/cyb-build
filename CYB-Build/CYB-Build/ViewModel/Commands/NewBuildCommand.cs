@@ -30,6 +30,8 @@ namespace CYB_Build.ViewModel.Commands
             if (tp == null)
                 return;
 
+            TaskProcessVM.Instance.SelectedTask = tp;
+            TabCtrlVM.Instance.SelectedItem.ProcessTitle = title;
             //tp.LoadDefault();
 
             if (bm != null)

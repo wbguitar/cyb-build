@@ -129,7 +129,7 @@
 
                 <view:ConfigsView Visibility="Collapsed" DockPanel.Dock="Top"/>
 
-                <view:TabCtrlView DockPanel.Dock="Bottom"/>
+                <view:TabCtrlView DockPanel.Dock="Bottom" />
 
 
             </DockPanel>
